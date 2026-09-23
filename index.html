@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Universo de Brujita ✨🐸</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Reproductor de Audio -->
+    <audio id="bg-music" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" class="music-control">🎵 Música: OFF</button>
+
+    <!-- La Ranita Acompañante (Tierna y sutil) -->
+    <div id="frog-companion" title="¡Tócame!">
+        <div id="frog-speech-bubble" class="hidden">¡Ribbit! ✨</div>
+        <div class="frog-avatar">🐸</div>
+    </div>
+
+    <!-- Fondo Mágico Continuo -->
+    <div id="sky-background"></div>
+    <div id="particles-container"></div>
+    <div id="toast-message" class="hidden"></div>
+
+    <!-- PANTALLA INICIAL -->
+    <div id="intro-screen" class="screen">
+        <div class="frog-badge">🐸✨</div>
+        <h1 class="fade-text intro-title">Hay algo que el universo necesitaba decirte hoy...</h1>
+        <p class="fade-text intro-subtitle">Un refugio construido con código, mucha paciencia, risas y un cariño inmenso.</p>
+        <p class="fade-text kaomoji-sub">(Ponte cómoda, enciende el volumen y respira profundo)</p>
+        <button id="btn-entrar" class="magic-button">Entrar a tu Universo ✨</button>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div id="main-content" class="screen hidden">
+        
+        <!-- SALUDO -->
+        <section id="greeting-section" class="section">
+            <div class="greeting-container">
+                <p class="greeting-line line-1">Hoy no es un día cualquiera...</p>
+                <p class="greeting-line line-2">Hoy el mundo da una vuelta más gracias a que estás en él.</p>
+                <h1 class="greeting-line line-3 title-main">¡Feliz Cumpleaños, <span class="highlight config-apodo">Brujita</span>! 🎂✨</h1>
+                <p class="greeting-line line-4 kaomoji-text">Tu amigo la ranita te construyó este rincón galáctico.</p>
+            </div>
+            <div class="scroll-indicator fade-text">
+                <p>Desliza con calma hacia abajo</p>
+                <div class="arrow-down">↓</div>
+            </div>
+        </section>
+
+        <!-- NUEVO: MEDIDOR DE BATERÍA SOCIAL -->
+        <section id="battery-section" class="section">
+            <h2 class="section-title">Tu Medidor de Batería Social 🔋</h2>
+            <p class="section-subtitle">¿Cómo nos sentimos hoy? Ajusta el nivel y la ranita se adapta a ti.</p>
+            
+            <div class="battery-container">
+                <div class="battery-visual">
+                    <div id="battery-level" class="battery-fill"></div>
+                </div>
+                <input type="range" id="battery-slider" min="0" max="100" value="50">
+                <p id="battery-status" class="battery-text">Batería al 50%: "Modo normal. Sobreviviendo."</p>
+                <p id="battery-msg" class="battery-msg-text">Un equilibrio perfecto. Te apoyo en lo que decidas hacer hoy.</p>
+            </div>
+        </section>
+
+        <!-- PALABRAS DEL CORAZÓN (Lloradita bonita) -->
+        <section id="phrases-section" class="section">
+            <h2 class="section-title">Mensajes desde el Corazón 💌</h2>
+            <p class="section-subtitle">Porque a veces necesitas leer lo que los demás ven en ti.</p>
+            <div class="cards-container" id="cards-container"></div>
+        </section>
+
+        <!-- SISTEMA SOLAR (COMEDIA PURA) -->
+        <section id="universe-section" class="section">
+            <h2 class="section-title">El Sistema Solar de los Chistes 🌌</h2>
+            <p class="section-subtitle">Toca cada planeta para descubrir las verdades absolutas (y absurdas) de esta galaxia.</p>
+            <div id="solar-system" class="solar-system"></div>
+            <div id="universe-message" class="fortune-card hidden">
+                <p id="universe-text"></p>
+            </div>
+        </section>
+
+        <!-- NUEVO: LA BOLA DE CRISTAL DE ELOGIOS -->
+        <section id="crystal-section" class="section">
+            <h2 class="section-title">El Oráculo de las Verdades Absolutas 🔮</h2>
+            <p class="section-subtitle">Toca la bola de cristal para recibir un dato científicamente comprobado sobre ti.</p>
+            <div class="crystal-container">
+                <div id="crystal-ball" class="crystal-ball">🔮</div>
+                <p id="crystal-text" class="crystal-message">El oráculo duerme. Toca el cristal para despertarlo...</p>
+            </div>
+        </section>
+
+        <!-- CARRUSEL 3D DE CUALIDADES -->
+        <section id="qualities-section" class="section">
+            <h2 class="section-title">La Galaxia de tus Cualidades 🌠</h2>
+            <p class="section-subtitle">Usa los botones para girar el universo y ver lo que irradias todos los días.</p>
+            <div class="carousel-container">
+                <div class="carousel-3d" id="carousel-3d"></div>
+            </div>
+            <div class="carousel-controls">
+                <button id="btn-prev" class="magic-button small-btn">◄ Girar</button>
+                <button id="btn-next" class="magic-button small-btn">Girar ►</button>
+            </div>
+        </section>
+
+        <!-- TALONARIO DE CUPONES (Tierno y Gracioso) -->
+        <section id="coupons-section" class="section">
+            <h2 class="section-title">Talonario Infinito de Cupones 🎟️</h2>
+            <p class="section-subtitle">Toca para voltear. Válidos hoy, mañana y siempre. Cero letras chiquitas.</p>
+            <div class="coupons-grid">
+                <div class="coupon-card" onclick="this.classList.toggle('flipped')">
+                    <div class="coupon-inner">
+                        <div class="coupon-front">🎟️ Cupón Sorpresa 1</div>
+                        <div class="coupon-back"><strong>Derecho al Berrinche 😤</strong><br><br>Válido para quejarte de la vida durante 15 minutos sin que nadie te juzgue o intente darte soluciones.</div>
+                    </div>
+                </div>
+                <div class="coupon-card" onclick="this.classList.toggle('flipped')">
+                    <div class="coupon-inner">
+                        <div class="coupon-front">🎟️ Cupón Sorpresa 2</div>
+                        <div class="coupon-back"><strong>Escudo Antimundo 🛡️</strong><br><br>Pase libre para clavar el "visto", apagar el celular y hacerte bolita en las cobijas.</div>
+                    </div>
+                </div>
+                <div class="coupon-card" onclick="this.classList.toggle('flipped')">
+                    <div class="coupon-inner">
+                        <div class="coupon-front">🎟️ Cupón Sorpresa 3</div>
+                        <div class="coupon-back"><strong>Compañía Silenciosa 🤫</strong><br><br>Válido para que me siente a tu lado en silencio. Solo para que sepas que no estás sola.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JUEGO REIMAGINADO: APLASTA LA ANSIEDAD -->
+        <section id="game-section" class="section">
+            <h2 class="section-title">Terapia de Choque Mágica 🎮</h2>
+            <p class="section-subtitle">Reglas: Dale click a los pensamientos feos (🌪️, 📉, 🧠). ¡NO toques a las ranitas (🐸) ni a los taquitos (🌮)! Llega a 15 puntos.</p>
+            
+            <div class="game-container">
+                <div class="game-stats">
+                    <span>Puntos: <strong id="game-score">0</strong>/15</span>
+                    <button id="btn-start-game" class="magic-button small-btn">Jugar 🎮</button>
+                </div>
+                <div id="game-grid" class="whack-grid blocked">
+                    <div class="hole" id="h0"></div><div class="hole" id="h1"></div><div class="hole" id="h2"></div>
+                    <div class="hole" id="h3"></div><div class="hole" id="h4"></div><div class="hole" id="h5"></div>
+                    <div class="hole" id="h6"></div><div class="hole" id="h7"></div><div class="hole" id="h8"></div>
+                </div>
+                <div id="game-reward" class="hidden">
+                    <div class="reward-box">
+                        <h3>🎉 ¡Ansiedad Derrotada! ✨</h3>
+                        <p>Te ganaste: <strong>Paz mental, un abrazo virtual de 10 segundos y ganas de vivir.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LABORATORIO DE POCIONES -->
+        <section id="potion-section" class="section">
+            <h2 class="section-title">El Caldero de la Calma 🧪✨</h2>
+            <p class="section-subtitle">Combina 2 ingredientes mágicos para destilar la energía que necesites hoy.</p>
+            
+            <div class="potion-lab-container">
+                <div class="ingredients-selector">
+                    <button class="ing-btn" data-ing="sueño">😴 Polvo de Siesta</button>
+                    <button class="ing-btn" data-ing="abrazo">🐸 Abrazo de Ranita</button>
+                    <button class="ing-btn" data-ing="paciencia">🍵 Té de Paciencia</button>
+                    <button class="ing-btn" data-ing="risa">🤡 Chispas de Risa</button>
+                </div>
+                
+                <div class="cauldron-area">
+                    <div id="cauldron" class="cauldron-icon">🧪</div>
+                    <p id="cauldron-status">Selecciona 2 ingredientes...</p>
+                    <button id="btn-brew" class="magic-button small-btn hidden">¡Destilar Poción! ✨</button>
+                </div>
+                
+                <div id="potion-result" class="fortune-card hidden"></div>
+            </div>
+        </section>
+
+        <!-- BOTIQUÍN DE APOYO EMOCIONAL (Empatía) -->
+        <section id="support-section" class="section">
+            <h2 class="section-title">Botiquín de Emergencia 🩹💚</h2>
+            <p class="section-subtitle">Para los días donde todo pesa un poquito más de lo normal.</p>
+            <div class="support-buttons">
+                <button class="support-btn" data-msg="Sé que a veces el apetito desaparece cuando hay estrés. No te fuerces. Da unos sorbitos de agua, o un bocado chiquito de algo dulce. Tu cuerpo hace un gran trabajo sosteniéndote, y esta ranita está muy orgullosa de ti.">Si hoy te cuesta comer 🍲</button>
+                <button class="support-btn" data-msg="Cierra los ojos un momento. Inhala aire despacito... sostenlo... y suéltalo. No tienes que tener tu vida resuelta hoy. No tienes que complacer a nadie hoy. Solo respira. Un ratito a la vez.">Si te sientes abrumada 🧠</button>
+                <button class="support-btn" data-msg="Cuando el espejo o tu mente sean crueles, déjame ser tu recordatorio: Eres brillantemente inteligente, tienes un corazón noble y eres capaz de salir de cualquier tormenta. Eres suficiente, exactamente como eres.">Si dudas de tu valor 💖</button>
+                <button class="support-btn" data-msg="El mundo es ruidoso y agota. Tienes todo el permiso del universo para apagar las pantallas, ignorar mensajes, ponerte pijama y simplemente no existir para el exterior un rato. Se vale descansar.">Si estás agotada del mundo 🌙</button>
+            </div>
+        </section>
+
+        <!-- CARTA FINAL -->
+        <section id="surprise-section" class="section">
+            <div class="frog-large">🐸💌</div>
+            <p class="kaomoji-text" style="margin-bottom: 25px;">Has recorrido cada rincón de este pequeño espacio...</p>
+            <button id="btn-sorpresa" class="magic-button">Abrir la Carta Final ✉️</button>
+        </section>
+    </div>
+
+    <!-- MODAL POPUP -->
+    <div id="modal-overlay" class="hidden">
+        <div class="modal-card">
+            <p id="modal-text"></p>
+            <button id="modal-close" class="magic-button small-btn">Cerrar ✨</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE CARTA FINAL -->
+    <div id="letter-overlay" class="hidden">
+        <div class="letter-content">
+            <p id="letter-intro" class="letter-text">Querida <span class="config-apodo">Brujita</span>...</p>
+            <div id="letter-body" class="hidden">
+                <div id="letter-paragraphs"></div>
+                <p class="firma">Con todo el cariño del mundo,<br>Tu amigo la ranita 🐸💚</p>
+            </div>
+            <button id="btn-cerrar" class="magic-button hidden" style="margin-top: 30px;">Cerrar Carta ✨</button>
+        </div>
+    </div>
+
+    <div id="confetti-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
